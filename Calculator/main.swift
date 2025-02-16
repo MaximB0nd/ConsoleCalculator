@@ -23,30 +23,28 @@ while true{
     if operation == "h" {
         showHistory()
         continue
-        
     }
     
     let firstNumber = getDataFromUser(description: "Enter the first number: ")
     
+    guard let firstnumber = Double(firstNumber) else {
+        print ("Invalid first number input")
+        continue
+    }
+    
     let secondNumber = getDataFromUser(description: "Enter the second number: ")
+    
+    guard let secondnumber = Double(secondNumber) else {
+        print ("Invalid second number input")
+        continue
+    }
     
     print("Counting " + firstNumber + " " + operation + " " + secondNumber + "...")
     
     history.append(firstNumber + " " + operation + " " + secondNumber)
     
-    if let firstNumber = Double(firstNumber)
-    {
-        if let secondNumber = Double(secondNumber){
-            calculate(firstNumber, operation, secondNumber)
-        }
-        else {
-            print ("Invalid second number input")
-        }
-    }
-    
-    else {
-        print ("Invalid first number input")
-    }
+    calculate(Double(firstNumber)!, operation, Double(secondNumber)!)
+     
     print("\n\n\n")
 }
 
@@ -69,7 +67,7 @@ func calculate(_ firstNumber: Double, _ operation: String, _ secondNumber: Doubl
     case "*":
         showResult(firstNumber * secondNumber)
     case "/":
-        if secondNumber == 0 {
+        guard secondNumber != 0 else {
             print("Error! Division by zero is not allowed.")
             break
         }
