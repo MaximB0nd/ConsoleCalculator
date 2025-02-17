@@ -13,15 +13,22 @@ print("Welcome to CALCULATOR")
 var history: [String] = []
 
 while true{
+    let action = getDataFromUser(description: "Entet action: c - calculate, h - show history, q - quit: ")
     
-    let operation = getDataFromUser(description: "Enter an operator: +, -, * or / (enter q to quit, h to show history): ")
+    guard action != "h" else {
+        showHistory()
+        continue
+    }
     
-    if operation == "q" {
+    guard action != "q" else {
         exit(0)
     }
     
-    if operation == "h" {
-        showHistory()
+    
+    let operation = getDataFromUser(description: "Enter an operator: +, -, * or / : ")
+    
+    guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
+        print("Invalid operator input")
         continue
     }
     
@@ -66,15 +73,13 @@ func calculate(_ firstNumber: Double, _ operation: String, _ secondNumber: Doubl
         showResult(firstNumber - secondNumber)
     case "*":
         showResult(firstNumber * secondNumber)
+    case "/" where secondNumber == 0:
+        print("Error! Division by zero is not allowed.")
+        return
     case "/":
-        guard secondNumber != 0 else {
-            print("Error! Division by zero is not allowed.")
-            break
-        }
         showResult(firstNumber - secondNumber)
     default:
         print("Invalid operator!")}
-    
     
 }
 
