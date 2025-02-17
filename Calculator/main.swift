@@ -79,8 +79,8 @@ func calculate(_ firstNumber: Double, _ operation: String, _ secondNumber: Doubl
     case "/":
         showResult(firstNumber - secondNumber)
     default:
-        print("Invalid operator!")}
-    
+        return
+    }
 }
 
 func showHistory(){
